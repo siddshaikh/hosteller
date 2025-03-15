@@ -4,18 +4,18 @@ export const typeDefs = gql`
   type Location {
     id: ID!
     name: String!
-    image: String!
+    hostels: [Hostel!]
   }
 
   type Hostel {
     id: ID!
     name: String!
-    image: String!
     locationId: ID!
   }
 
   type Query {
-    locations: [Location]
-    hostels(locationId: ID!): [Hostel]
+    locations: [Location!]
+    location(id: ID!): Location
+    hostels(locationId: ID!): [Hostel!]
   }
 `;

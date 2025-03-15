@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const locationSchema = new mongoose.Schema({
+const locationSchema = new Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
 });
 
-export default mongoose.model.Location ||
-  mongoose.model("Location", locationSchema);
+export const Location =
+  mongoose.models.Location || mongoose.model("Location", locationSchema);

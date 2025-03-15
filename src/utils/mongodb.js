@@ -1,35 +1,28 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.NEXT_PUBLIC_MONGO_URI;
+const MONGODB_URI = process.env.NEXT_PUBLIC_MONGO_URI;
 
-if (!MONGO_URI) {
-  throw new Error("No mongo URI found.");
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable.");
 }
 
-let cached = global.mongoose;
+let isConnected = false;
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
-export async function dataBaseConnection() {
-  // If already connected, return the cached connection
-  if (cached.conn) {
-    return cached.conn;
+export const dataBaseConnection = async () => {
+  if (isConnected) {
+    console.log("Already connected to the database.");
+    return;
   }
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    // Create a new connection if there is no promise
-    cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
-      console.log("Connected to MongoDB.");
-      return mongoose;
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      dbName: "hosteller",
     });
+    isConnected = mongoose.connection.readyState === 1;
+    console.log("Database connected successfully.");
+  } catch (error) {
+    console.error("Database connection failed:", error);
   }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
+};

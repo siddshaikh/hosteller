@@ -10,4 +10,5 @@ const hostelSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.Hostel || mongoose.model("Hostel", hostelSchema);
+export default mongoose.models.Hostel ||
+  mongoose.model("Hostel", hostelSchema, "hostels");

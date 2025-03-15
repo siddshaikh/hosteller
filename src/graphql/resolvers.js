@@ -1,12 +1,10 @@
+import Hostel from "@/models/Hostel";
+import { Location } from "@/models/Location";
+
 export const resolvers = {
   Query: {
-    locations: async () => {
-      const locations = await LocationModel.find({});
-      return locations;
-    },
-    hostels: async (_, { locationId }) => {
-      const hostels = await HostelModel.find({ locationId });
-      return hostels;
-    },
+    locations: async () => await Location.find(),
+    location: async (_, { id }) => await Location.findById(id),
+    hostels: async (_, { locationId }) => await Hostel.find({ locationId }),
   },
 };

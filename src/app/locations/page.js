@@ -1,23 +1,16 @@
 import React from "react";
-import { gql } from "@apollo/client";
-import apolloClient from "@/utils/apolloClient";
+import { getHostels } from "../api/getHostels";
 
 async function LocationPage() {
-  const { data } = await apolloClient.query({
-    query: gql`
-      query {
-        locations {
-          id
-          name
-          image
-        }
-      }
-    `,
-  });
+  const data = await getHostels();
 
-  console.log(data);
-
-  return <div>LocationPage</div>;
+  return (
+    <div>
+      {data.map((i) => (
+        <div key={i._id}>{i.name}</div>
+      ))}
+    </div>
+  );
 }
 
 export default LocationPage;

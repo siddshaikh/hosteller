@@ -11,9 +11,11 @@
   "dependencies": {
     "@apollo/client": "^3.13.4",
     "@apollo/server": "^4.11.3",
+    "@as-integrations/next": "^3.2.0",
     "@reduxjs/toolkit": "^2.6.1",
-    "apollo-server-micro": "^3.13.0",
     "graphql": "^16.10.0",
+    "graphql-yoga": "^5.13.1",
+    "micro": "^10.0.1",
     "mongoose": "^8.12.1",
     "next": "15.2.2",
     "react": "^19.0.0",

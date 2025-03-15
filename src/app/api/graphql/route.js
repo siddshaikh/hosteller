@@ -1,15 +1,11 @@
-import { ApolloServer } from "@apollo/server";
-import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { typeDefs } from "@/graphql/schema";
+import { createYoga } from "graphql-yoga";
+import { schema } from "@/graphql/schema";
 import { resolvers } from "@/graphql/resolvers";
-import { dataBaseConnection } from "@/utils/mongodb";
 
-const apolloServer = new ApolloServer({
-  typeDefs,
+const yoga = createYoga({
+  schema,
   resolvers,
+  graphqlEndpoint: "/api/graphql",
 });
 
-// Connect to MongoDB
-await dataBaseConnection();
-
-export const { GET, POST } = startServerAndCreateNextHandler(apolloServer);
+export { yoga as GET, yoga as POST };
