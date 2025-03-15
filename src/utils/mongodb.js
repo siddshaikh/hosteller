@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.NEXT_PUBLIC_MONGO_URI;
 
 if (!MONGO_URI) {
   throw new Error("No mongo URI found.");
@@ -13,6 +13,7 @@ if (!cached) {
 }
 
 export async function dataBaseConnection() {
+  // If already connected, return the cached connection
   if (cached.conn) {
     return cached.conn;
   }
@@ -22,10 +23,13 @@ export async function dataBaseConnection() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    // Create a new connection if there is no promise
+    cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
+      console.log("Connected to MongoDB.");
       return mongoose;
-    }, "Connected to mongoDB.");
+    });
   }
+
   cached.conn = await cached.promise;
   return cached.conn;
 }
