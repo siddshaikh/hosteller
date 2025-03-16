@@ -31,7 +31,7 @@ const HostelCard = ({ hostel }) => {
   };
 
   return (
-    <div className="shadow-lg flex p-4">
+    <div className="shadow-lg flex flex-col sm:flex-row w-full p-4">
       {/* Image section */}
       <Image
         src={hostel.image}
