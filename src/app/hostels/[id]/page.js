@@ -1,8 +1,13 @@
+import Availability from "@/components/Availability";
 import React from "react";
 
-const HostelPage = ({ params }) => {
-  const { id } = params;
-  return <div>HostelPage for ID: {id}</div>;
+const HostelPage = async ({ params }) => {
+  const { id } = await params;
+  return (
+    <div>
+      <Availability id={id} />
+    </div>
+  );
 };
 
 export default HostelPage;

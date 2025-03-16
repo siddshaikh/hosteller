@@ -11,7 +11,7 @@ const pubSub = createPubSub();
 const schema = createSchema({
   typeDefs: `
     type Query {
-      hostels: [Hostel]
+      hostels(locationId: String!):[Hostel]
       locations:[Location]
     }
     type Location {
@@ -20,8 +20,12 @@ const schema = createSchema({
       image: String
     }  
     type Hostel {
+      _id: String
       name: String
       image: String
+      price: String
+      locationId: String
+      availability: Int
     }
    
   `,
@@ -36,10 +40,12 @@ const schema = createSchema({
           throw new Error("Error while fetching locations");
         }
       },
-      hostels: async () => {
+      hostels: async (_, { locationId }) => {
         try {
           await dataBaseConnection();
-          const hostels = await Hostel.find({});
+          const hostels = await Hostel.find({
+            locationId: locationId,
+          });
           return hostels;
         } catch (error) {
           throw new Error("Error fetching hostels");

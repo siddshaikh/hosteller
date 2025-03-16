@@ -14,35 +14,42 @@ const cartSlice = createSlice({
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
+      const discountedPrice = Math.round(
+        action.payload.price - (action.payload.price * 30) / 100
+      );
+
       if (existingItem) {
         existingItem.quantity += 1;
-        existingItem.totalPrice += action.payload.price;
+        existingItem.totalPrice = existingItem.quantity * discountedPrice;
       } else {
         state.items.push({
           id: action.payload.id,
           name: action.payload.name,
-          price: action.payload.price,
+          price: discountedPrice,
           quantity: 1,
-          totalPrice: action.payload.price,
+          totalPrice: discountedPrice,
         });
       }
+
       state.totalQuantity += 1;
-      state.totalPrice += action.payload.price;
+      state.totalPrice += discountedPrice;
     },
     removeFromCart(state, action) {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
+
       if (existingItem) {
         state.totalQuantity -= 1;
         state.totalPrice -= existingItem.price;
+
         if (existingItem.quantity === 1) {
           state.items = state.items.filter(
             (item) => item.id !== action.payload.id
           );
         } else {
           existingItem.quantity -= 1;
-          existingItem.totalPrice -= existingItem.price;
+          existingItem.totalPrice = existingItem.quantity * existingItem.price;
         }
       }
     },
