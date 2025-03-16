@@ -1,25 +1,33 @@
 "use client";
+import ImageCard from "@/components/ImageCard";
 import { gql, useQuery } from "@apollo/client";
 
-const HOSTEL_QUERY = gql`
+const LOCATION_QUERY = gql`
   query {
-    hostels {
+    locations {
+      _id
       name
+      image
     }
   }
 `;
 
 export default function Home() {
-  const { loading, error, data } = useQuery(HOSTEL_QUERY);
-  console.log(error);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const { data, loading, error } = useQuery(LOCATION_QUERY);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>{error.message}</p>;
+  }
 
   return (
-    <div>
-      <h1>The Hosteller Locations</h1>
-      <ul>{JSON.stringify(data)}</ul>
+    <div className="px-20 mt-5 flex flex-wrap gap-4">
+      {data?.locations.map((location) => (
+        <div key={location._id} className="flex-none">
+          <ImageCard location={location} />
+        </div>
+      ))}
     </div>
   );
 }
