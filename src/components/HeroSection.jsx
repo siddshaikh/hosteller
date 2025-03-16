@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 import HeroDateOptions from "./HeroDateOptions";
+import Link from "next/link";
 
 const menu = ["Hostel", "Workation", "Colive", "Bus", "Commune", "Events"];
 const HeroSection = () => {
@@ -20,9 +21,11 @@ const HeroSection = () => {
       </ul>
       <div className="flex items-center md:justify-start gap-2 pb-2 pr-2 flex-wrap md:flex-nowrap">
         <HeroDateOptions />
-        <button className="text-black bg-[var(--theme-color)] font-bold px-14 py-3.5 whitespace-nowrap rounded-md">
-          Book now
-        </button>
+        <Link href="/">
+          <button className="text-black bg-[var(--theme-color)] font-bold px-14 py-3.5 whitespace-nowrap rounded-md cursor-pointer">
+            Book now
+          </button>
+        </Link>
       </div>
     </div>
   );
