@@ -2,21 +2,20 @@ import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
   type Query {
+    hostels(locationId: String!): [Hostel]
     locations: [Location]
-    location(id: ID!): Location
-    hostels(locationId: ID!): [Hostel]
   }
-
   type Location {
-    _id: ID!
-    name: String!
-    image: String!
+    _id: String
+    name: String
+    image: String
   }
-
   type Hostel {
-    _id: ID!
-    name: String!
-    image: String!
-    locationId: ID!
+    _id: String
+    name: String
+    image: String
+    price: String
+    locationId: String
+    availability: Int
   }
 `;
