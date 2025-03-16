@@ -27,12 +27,13 @@ const Availability = ({ id }) => {
   const { data, loading } = useQuery(HOSTEL_QUERY, {
     variables: { locationId: id },
   });
+
   if (loading) return <p>Loading...</p>;
+
   return (
-    <div className="flex w-full gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
       {/* Card Wrapper */}
-      <div className="flex flex-col gap-4 w-[65%]">
-        {/* availability card */}
+      <div className="col-span-2 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h1 className="uppercase tracking-wider font-bold text-2xl">
             Availability
@@ -43,12 +44,12 @@ const Availability = ({ id }) => {
             </span>
             <ArrowRight className="h-4 w-4" />
             <span className="font-bold">
-              {format(startDateObj, "dd MM, yyyy")}
+              {format(endDateObj, "dd MM, yyyy")}
             </span>
           </p>
         </div>
         {data?.hostels.length ? (
-          data?.hostels.map((hostel) => (
+          data.hostels.map((hostel) => (
             <HostelCard key={hostel._id} hostel={hostel} />
           ))
         ) : (
@@ -57,7 +58,7 @@ const Availability = ({ id }) => {
       </div>
 
       {/* Summary Section */}
-      <div className="w-[35%] sticky top-5 h-fit p-4 rounded-lg shadow-md">
+      <div className="col-span-1 sticky top-5 h-fit p-4 rounded-lg shadow-md bg-white">
         <h1 className="uppercase tracking-wider font-bold text-2xl">Summary</h1>
         <Summary />
       </div>

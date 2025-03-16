@@ -46,7 +46,7 @@ export const Summary = () => {
   };
 
   return (
-    <div>
+    <div className="max-h-[600px] overflow-y-scroll">
       {cartItems.length ? (
         <>
           {" "}

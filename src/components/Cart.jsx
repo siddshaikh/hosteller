@@ -1,11 +1,20 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Backpack } from "lucide-react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
 const Cart = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <Link href="/my-cart">
