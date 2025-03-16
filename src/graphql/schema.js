@@ -1,21 +1,8 @@
-import { gql } from "graphql-tag";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { typeDefs } from "./typeDefs";
+import { resolvers } from "./resolvers";
 
-export const typeDefs = gql`
-  type Location {
-    id: ID!
-    name: String!
-    hostels: [Hostel!]
-  }
-
-  type Hostel {
-    id: ID!
-    name: String!
-    locationId: ID!
-  }
-
-  type Query {
-    locations: [Location!]
-    location(id: ID!): Location
-    hostels(locationId: ID!): [Hostel!]
-  }
-`;
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
