@@ -6,9 +6,12 @@ import {
   removeFromCart,
   addToCart,
   removeSingleItemFromCart,
+  clearCart,
 } from "@/store/features/cart/cartSlice";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
+import Checkout from "./Checkout";
 
 export const Summary = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -132,9 +135,7 @@ export const Summary = () => {
             </h4>
           </div>
           {/* checkout */}
-          <button className="w-full py-3 bg-[var(--theme-color)] rounded-md">
-            Checkout Now
-          </button>
+          <Checkout clearCart={clearCart} />
         </>
       ) : (
         <Image
